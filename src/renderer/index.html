@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <title>Task Manager</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Экран списка задач -->
+        <div id="task-list-screen" class="screen active">
+            <div class="task-list">
+                <h2>Список задач</h2>
+                <div id="tasks-container"></div>
+            </div>
+        </div>
+
+        <!-- Экран графа задачи -->
+        <div id="task-graph-screen" class="screen">
+            <button class="back-button">← Назад к списку</button>
+            <h2 id="current-task-name"></h2>
+            <div id="graph-container"></div>
+        </div>
+    </div>
+
+    <!-- Контекстное меню -->
+    <div id="context-menu" class="context-menu"></div>
+
+    <!-- Модальное окно переименования этапа -->
+    <div id="rename-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Переименовать этап</h3>
+            </div>
+            <input type="text" id="rename-input" class="modal-input" placeholder="Введите новое название">
+            <div class="modal-buttons">
+                <button class="modal-button secondary" data-action="cancel" data-modal="rename-modal">Отмена</button>
+                <button class="modal-button primary" data-action="confirm" data-modal="rename-modal">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления задачи -->
+    <div id="add-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить задачу</h3>
+            </div>
+            <input type="text" id="add-task-input" class="modal-input" placeholder="Введите название задачи">
+            <div class="modal-buttons">
+                <button class="modal-button secondary" data-action="cancel" data-modal="add-task-modal">Отмена</button>
+                <button class="modal-button primary" data-action="confirm" data-modal="add-task-modal">Добавить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления этапа -->
+    <div id="add-stage-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить этап</h3>
+            </div>
+            <input type="text" id="add-stage-input" class="modal-input" placeholder="Введите название этапа">
+            <div class="modal-buttons">
+                <button class="modal-button secondary" data-action="cancel" data-modal="add-stage-modal">Отмена</button>
+                <button class="modal-button primary" data-action="confirm"
+                    data-modal="add-stage-modal">Добавить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования задачи -->
+    <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Редактировать задачу</h3>
+            </div>
+            <input type="text" id="edit-task-input" class="modal-input" placeholder="Введите новое название задачи">
+            <div class="modal-buttons">
+                <button class="modal-button secondary" data-action="cancel" data-modal="edit-task-modal">Отмена</button>
+                <button class="modal-button primary" data-action="confirm"
+                    data-modal="edit-task-modal">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно удаления задачи -->
+    <div id="delete-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Удалить задачу</h3>
+            </div>
+            <p>Вы уверены, что хотите удалить задачу "<span id="delete-task-name"></span>"?</p>
+            <div class="modal-buttons">
+                <button class="modal-button secondary" data-action="cancel"
+                    data-modal="delete-task-modal">Отмена</button>
+                <button class="modal-button primary" data-action="confirm"
+                    data-modal="delete-task-modal">Удалить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно изменения статуса задачи -->
+    <div id="change-task-status-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Изменить статус задачи</h3>
+            </div>
+            <p>Выберите новый статус для задачи "<span data-task-name></span>":</p>
+            <div class="status-options" id="task-status-options">
+                <div class="status-option" data-status="in-progress">
+                    <span class="status-dot status-in-progress"></span>
+                    В процессе
+                </div>
+                <div class="status-option" data-status="waiting">
+                    <span class="status-dot status-waiting"></span>
+                    Жду другого
+                </div>
+                <div class="status-option" data-status="completed">
+                    <span class="status-dot status-completed"></span>
+                    Завершено
+                </div>
+                <div class="status-option" data-status="failed">
+                    <span class="status-dot status-failed"></span>
+                    Провалено
+                </div>
+                <div class="status-option" data-status="frozen">
+                    <span class="status-dot status-frozen"></span>
+                    Заморожено
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button secondary" data-action="cancel"
+                    data-modal="change-task-status-modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../dist/renderer/bundle.js"></script>
+</body>
+
+</html>
