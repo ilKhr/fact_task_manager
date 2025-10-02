@@ -1,27 +1,19 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: trivy
+name: Security Scan
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ "main" ]
   schedule:
     - cron: '33 0 * * 6'
 
 permissions:
   contents: read
+  security-events: write
 
 jobs:
   trivy-scan:
-    permissions:
-      contents: read
-      security-events: write
     name: Trivy Security Scan
     runs-on: ubuntu-latest
     steps:
